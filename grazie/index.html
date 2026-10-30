@@ -3,10 +3,13 @@
 <title>Grazie · Schiena Sciolta</title></head><body><main>
 <div class="marca"><img src="../img/apple-touch-180.png" alt="">Schiena Sciolta</div>
 <h1>Fatto. Il piano è tuo.</h1><p>Ecco come aprirlo.</p>
+<p id="forte" style="display:none;margin-top:14px;padding:12px 14px;border-radius:14px;background:#e2eee8;color:#2f6f62;font-weight:600">✓ Schiena Forte aggiunto al tuo ordine. Arriva con un'altra email.</p>
 <ol>
 <li><b>1. Apri l'email di conferma.</b><span>Arriva all'indirizzo che hai scritto nel pagamento, di solito entro pochi minuti. Se non la vedi, cerca in Spam o in Promozioni.</span></li>
 <li><b>2. Tocca il link dal telefono.</b><span>L'app si apre nel browser, senza registrazione e senza scaricare niente.</span></li>
 <li><b>3. Aggiungila alla schermata Home.</b><span>Su iPhone: Condividi, poi "Aggiungi alla schermata Home". Su Android: i tre puntini, poi "Aggiungi a schermata Home". Così si apre come le altre app.</span></li>
 </ol>
 <p class="nota">Dopo 15 minuti ancora niente? Rispondi all'email di conferma del pagamento o scrivi al contatto di assistenza che trovi lì.</p>
-</main></body></html>
+</main>
+<script>if (/[?&]forte=1/.test(location.search)) document.getElementById('forte').style.display = 'block';</script>
+</body></html>
