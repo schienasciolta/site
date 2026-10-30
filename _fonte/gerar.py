@@ -12,7 +12,7 @@ PIXEL_ID = ''           # dataset do Meta (preencher quando existir)
 PAINEL = '<script async src="https://painel.labofertas.com/api/lp/script?k=f6a8ffdd8d97b8f1b6e4028b63ac8c50"></script>'  # visitas do painel (instalacao.script do diagnostico-rastreio)
 
 ex = json.load(open(os.path.join(APP, '_fonte', 'conteudo', 'esercizi.json'), encoding='utf-8'))
-figuras = {k: {x: ex[k][x] for x in ('A', 'B', 'v', 'p') if x in ex[k]} for k in ('gatto', 'respiro', 'ponte', 'sedia', 'camminata')}
+figuras = {k: {x: ex[k][x] for x in ('A', 'B', 'v', 'p') if x in ex[k]} for k in ('gatto', 'respiro', 'ponte', 'sedia')}
 figura_js = open(os.path.join(APP, '_fonte', 'figura.js'), encoding='utf-8').read()
 
 pixel = ''

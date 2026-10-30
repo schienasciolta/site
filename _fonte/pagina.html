@@ -79,8 +79,11 @@ p{margin-top:12px}
 .box.alerta ul{padding-left:20px;margin-top:8px}
 .box.alerta li{margin-top:6px;font-size:15.5px}
 .nota{font-size:14.5px;color:var(--suave);margin-top:14px}
-.giorno{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.giorno svg{width:100%;height:auto;border-radius:16px;background:var(--areia)}
+.foto{display:block;width:100%;height:auto;border-radius:20px;margin-top:16px;background:var(--areia)}
+.scene{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.scene figure{margin:0;background:var(--cartao);border:1px solid var(--linha);border-radius:18px;overflow:hidden}
+.scene img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:var(--areia)}
+.scene figcaption{padding:10px 12px 12px;font-size:15px;line-height:1.4}
 .ancora{font-size:15.5px;color:var(--suave);margin-top:18px;padding-top:14px;border-top:1px solid var(--linha)}
 .ancora+.prezzo{margin-top:8px}
 .ancora small{font-size:12.5px}
@@ -143,6 +146,7 @@ footer a{margin:0 8px}
 
 <section><div class="c">
   <h2>Perché il dolore torna quando la terapia finisce</h2>
+  <img class="foto" src="img/foto/lucia-1-letto-largo.webp" alt="Una donna seduta sul bordo del letto la mattina, con una mano sulla schiena" width="900" height="675" loading="lazy">
   <p>Cinque giorni di punture. Va meglio. La terapia finisce e dopo qualche giorno ricomincia: in piedi, seduti, la mattina appena alzati.</p>
   <div class="ciclo" aria-hidden="true">
     <div class="passo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4M17 7l3-3M19 9l-8.5 8.5a2.1 2.1 0 0 1-3 0l-2-2a2.1 2.1 0 0 1 0-3L14 4M9 11l4 4M5 19l-3 3"/></svg>Punture</div>
@@ -159,6 +163,7 @@ footer a{margin:0 8px}
 
 <section style="background:var(--cartao)"><div class="c">
   <h2>Tre settimane, in quest'ordine</h2>
+  <img class="foto" src="img/foto/lucia-5-tappetino.webp" alt="Una donna fa un esercizio per la schiena sul tappetino, con il telefono davanti" width="1000" height="667" loading="lazy">
   <div class="fasi">
     <div class="fase"><svg class="figura" data-fig="respiro" aria-hidden="true"></svg><div><b>Settimana 1 · Calmare</b><p>Movimenti dolci, anche da sdraiati, per far calare la tensione.</p></div></div>
     <div class="fase"><svg class="figura" data-fig="gatto" aria-hidden="true"></svg><div><b>Settimana 2 · Sciogliere</b><p>Si recupera il movimento della schiena e delle anche, senza forzare.</p></div></div>
@@ -169,13 +174,12 @@ footer a{margin:0 8px}
 
 <section><div class="c">
   <h2>Il piano è fatto per aiutarti a</h2>
-  <div class="giorno" aria-hidden="true"><svg class="figura" data-fig="sedia"></svg><svg class="figura" data-fig="camminata"></svg></div>
-  <ul class="lista">
-    <li>alzarti dal letto la mattina senza quella rigidità che ti blocca;</li>
-    <li>restare seduto al lavoro senza doverti alzare di continuo per il dolore;</li>
-    <li>camminare e fare la spesa senza la paura che la schiena si blocchi;</li>
-    <li>chinarti e allacciarti le scarpe senza calcolare ogni movimento.</li>
-  </ul>
+  <div class="scene">
+    <figure><img src="img/foto/lucia-6-alzata.webp" alt="" width="520" height="650" loading="lazy"><figcaption>alzarti dal letto la mattina senza quella rigidità che ti blocca;</figcaption></figure>
+    <figure><img src="img/foto/marco-4-lavoro.webp" alt="" width="520" height="650" loading="lazy"><figcaption>restare seduto al lavoro senza doverti alzare di continuo per il dolore;</figcaption></figure>
+    <figure><img src="img/foto/marco-3-strada.webp" alt="" width="520" height="650" loading="lazy"><figcaption>camminare e fare la spesa senza la paura che la schiena si blocchi;</figcaption></figure>
+    <figure><img src="img/foto/lucia-2-scarpe.webp" alt="" width="520" height="650" loading="lazy"><figcaption>chinarti e allacciarti le scarpe senza calcolare ogni movimento.</figcaption></figure>
+  </div>
   <p class="nota">Ognuno ha i suoi tempi: il piano ti accompagna giorno per giorno, senza promesse di guarigione.</p>
 </div></section>
 
