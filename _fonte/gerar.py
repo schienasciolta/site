@@ -9,7 +9,7 @@ APP = os.path.join(os.path.dirname(SITE), 'app')
 
 CHECKOUT = 'https://pay.cakto.com.br/j9i9xr6'  # checkout do front na Cakto
 PIXEL_ID = ''           # dataset do Meta (preencher quando existir)
-PAINEL = ''             # linha do script de visitas do painel (instalacao.script do diagnostico-rastreio)
+PAINEL = '<script async src="https://painel.labofertas.com/api/lp/script?k=f6a8ffdd8d97b8f1b6e4028b63ac8c50"></script>'  # visitas do painel (instalacao.script do diagnostico-rastreio)
 
 ex = json.load(open(os.path.join(APP, '_fonte', 'conteudo', 'esercizi.json'), encoding='utf-8'))
 figuras = {k: {x: ex[k][x] for x in ('A', 'B', 'v', 'p') if x in ex[k]} for k in ('gatto', 'respiro', 'ponte', 'sedia', 'camminata')}
@@ -22,8 +22,8 @@ if PIXEL_ID:
              "s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');"
              f"fbq('init','{PIXEL_ID}');fbq('track','PageView');</script>"
              f'<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={PIXEL_ID}&ev=PageView&noscript=1"/></noscript>')
-    if PAINEL:
-        pixel += '\n' + PAINEL
+if PAINEL:  # o script de visitas vem depois do pixel, e entra mesmo antes de existir pixel
+    pixel = (pixel + '\n' + PAINEL).strip()
 
 s = open(os.path.join(AQUI, 'pagina.html'), encoding='utf-8').read()
 s = (s.replace('__PIXEL__', pixel).replace('__CHECKOUT__', CHECKOUT)
