@@ -7,7 +7,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
 APP = os.path.join(os.path.dirname(SITE), 'app')
 
-CHECKOUT = '#'          # checkout do front na Cakto (preencher quando existir)
+CHECKOUT = 'https://pay.cakto.com.br/j9i9xr6'  # checkout do front na Cakto
 PIXEL_ID = ''           # dataset do Meta (preencher quando existir)
 PAINEL = ''             # linha do script de visitas do painel (instalacao.script do diagnostico-rastreio)
 
