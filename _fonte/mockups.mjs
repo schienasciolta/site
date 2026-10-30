@@ -23,6 +23,7 @@ const TELAS = {
   fasi: { estado: { ...base, giorno: 12 }, rolar: 0 },
   fermarsi: { estado: base, clique: '[data-a="allarme"]' },
   sveglia: { estado: base, clique: '[data-p="sveglia"]' },
+  collo: { estado: base, clique: '[data-p="collo"]' },
   forte: { estado: { ...base, giorno: 21, completo: true }, clique: '[data-p="forte"]' },
 };
 
