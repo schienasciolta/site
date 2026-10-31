@@ -24,16 +24,16 @@ li::before{content:"";position:absolute;left:0;top:3px;width:22px;height:22px;bo
 .offerta{background:var(--cartao);border:2px solid var(--verde);border-radius:22px;padding:20px 18px;margin-top:22px}
 .prezzo{font-size:15.5px;color:var(--suave);margin-top:10px}
 .prezzo b{display:block;font-size:30px;color:var(--tinta);letter-spacing:-.01em}
-cakto-upsell-buttons,cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
-cakto-upsell-accept{margin-top:16px}
-cakto-upsell-accept::part(button){display:block;width:100%;min-height:58px;border:0;border-radius:16px;background:#2f6f62;color:#fff;font:700 18px system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer}
-cakto-upsell-reject{margin-top:10px}
-cakto-upsell-reject::part(button){display:block;width:100%;min-height:50px;border:1.5px solid #e4dacd;border-radius:16px;background:#fffdf9;color:#1f312d;font:600 16px system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer}
+#hotmart-sales-funnel{margin-top:16px;min-height:10px}
+.reserva[hidden]{display:none}
+.reserva a{display:flex;align-items:center;justify-content:center;width:100%;text-decoration:none;border-radius:16px;text-align:center}
+.reserva .si{margin-top:16px;min-height:58px;background:var(--verde);color:#fff;font-weight:700;font-size:18px}
+.reserva .no{margin-top:10px;min-height:50px;border:1.5px solid var(--linha);background:var(--cartao);color:var(--tinta);font-weight:600;font-size:16px}
 .nota{font-size:14px;color:var(--suave);margin-top:14px;text-align:center}
 </style>
 </head>
 <body>
-<div class="ok"><b>Pagamento confermato.</b>Il link per aprire il piano arriva per email.</div>
+<div class="ok"><b>Pagamento confermato.</b>Il piano si apre subito dopo questa pagina.</div>
 <main>
   <h1>Le 3 settimane finiscono. La schiena ha bisogno di continuare a muoversi.</h1>
   <p class="suave">Prima di andare: puoi aggiungere adesso il mantenimento, con un tocco, senza rifare il pagamento.</p>
@@ -47,29 +47,26 @@ cakto-upsell-reject::part(button){display:block;width:100%;min-height:50px;borde
       <li>Nella stessa app: si sblocca da solo, niente da scaricare</li>
     </ul>
     <p class="prezzo"><b>Meno di 20 €</b>Pagamento unico. Dentro l'app costa uguale: non è uno sconto, è solo più comodo aggiungerlo adesso.</p>
-    <cakto-upsell-buttons>
-      <cakto-upsell-accept bg-color="#2f6f62ff" text-color="#ffffff" offer-id="s36n8u5"
-        app-base-url="https://app.cakto.com.br" offer-type="upsell"
-        upsell-accept-url="../grazie/?forte=1" upsell-reject-url="../grazie/">Sì, aggiungo Schiena Forte</cakto-upsell-accept>
-      <cakto-upsell-reject upsell-reject-url="../grazie/">No grazie, mi basta il piano di 3 settimane</cakto-upsell-reject>
-    </cakto-upsell-buttons>
-    <p class="nota">Il pagamento con un tocco funziona con la carta usata per l'acquisto. Con PayPal si apre una pagina di pagamento a parte.</p>
+    <div id="hotmart-sales-funnel"></div>
+    <div class="reserva" id="reserva" hidden>
+      <a class="si" href="https://pay.hotmart.com/H108279005W">Sì, aggiungo Schiena Forte</a>
+      <a class="no" href="https://schienasciolta.com/accesso-r4v8qn/">No grazie, mi basta il piano di 3 settimane</a>
+    </div>
+    <p class="nota">Il pagamento con un tocco usa la carta dell'acquisto appena fatto.</p>
   </div>
 </main>
-<script src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>
+<script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
 <script>
-/* o upsell.js mostra os avisos em português: troca pelo italiano quando aparecem (na página e dentro dos botões) */
+/* Widget do Funil de Vendas da Hotmart (1 clique). Sem compra em andamento ele abre "pay.hotmart.com/funnel?undefined"
+   com erro: quem chega sem a query da Hotmart vê os botões de reserva, e se o widget não carregar em 8 s também. */
 (function () {
-  const T = [[/Pagamento aprovado/g, 'Pagamento approvato'], [/Obrigado por sua compra!?/g, 'Grazie per l\'acquisto!'],
-    [/Você será redirecionado em/g, 'Verrai reindirizzato tra'], [/segundos/g, 'secondi'], [/^Fechar$/, 'Chiudi'], [/Processando\.\.\./g, 'Elaborazione...']];
-  const trocar = raiz => {
-    const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT);
-    for (let n; (n = w.nextNode());) { let t = n.nodeValue, u = t; T.forEach(([a, b]) => { u = u.replace(a, b); }); if (u !== t) n.nodeValue = u; }
-  };
-  const vigiar = raiz => new MutationObserver(() => trocar(raiz)).observe(raiz, { childList: true, subtree: true, characterData: true });
-  vigiar(document.body);
-  const sombras = () => document.querySelectorAll('cakto-upsell-accept,cakto-upsell-reject').forEach(el => { if (el.shadowRoot && !el.__v) { el.__v = 1; vigiar(el.shadowRoot); trocar(el.shadowRoot); } });
-  sombras(); setTimeout(sombras, 800); setTimeout(sombras, 2500);
+  const reserva = document.getElementById('reserva'); let carregou = false;
+  const mostraReserva = esconde => { reserva.hidden = false; if (esconde) document.getElementById('hotmart-sales-funnel').style.display = 'none'; };
+  if (!location.search) { mostraReserva(true); return; }
+  try {
+    checkoutElements.init('salesFunnel', { onLoad: () => { carregou = true; }, onLoadDataError: () => mostraReserva(true) }).mount('#hotmart-sales-funnel');
+  } catch (e) { mostraReserva(true); return; }
+  setTimeout(() => { if (!carregou) mostraReserva(false); }, 8000);
 })();
 </script>
 </body>
