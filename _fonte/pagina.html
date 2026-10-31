@@ -406,12 +406,14 @@ __FIGURA_JS__
   const oggi = document.querySelector('[data-oggi]');
   const data = () => { try { oggi.textContent = new Intl.DateTimeFormat('it-IT', { timeZone: 'Europe/Rome', day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date()); } catch (e) {} };
   data(); setInterval(data, 60000);
-  /* aviso de compra: os nomes em sequência, recomeçando no fim; o primeiro aos 10 s, depois alterna 15 s e 10 s; fica 5 s na tela */
+  /* aviso de compra: os nomes em ordem sorteada a cada visita, todos antes de repetir (aí sorteia de novo); o primeiro aos 10 s, depois alterna 15 s e 10 s; fica 5 s na tela */
   const NOMI = ["Giuseppe","Maria","Antonio","Anna","Giovanni","Paola","Roberto","Francesca","Stefano","Giovanna","Marco","Daniela","Massimo","Laura","Franco","Patrizia","Alessandro","Angela","Paolo","Monica","Claudio","Cristina","Luigi","Silvia","Fabio","Antonella","Maurizio","Roberta","Salvatore","Elena","Vincenzo","Barbara","Carlo","Stefania","Bruno","Teresa","Andrea","Rita","Enrico","Cinzia","Michele","Sabrina","Giorgio","Donatella","Luca","Alessandra","Francesco","Federica"];
   const avv = document.querySelector('.avviso'), avvNome = avv.querySelector('b');
-  let nome = 0, vez = 0;
+  let fila = [], vez = 0;
+  const sorteia = () => { const f = NOMI.slice(); for (let i = f.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [f[i], f[j]] = [f[j], f[i]]; } return f; };
   const proximo = () => setTimeout(() => {
-    avvNome.textContent = NOMI[nome]; nome = (nome + 1) % NOMI.length;
+    if (!fila.length) fila = sorteia();
+    avvNome.textContent = fila.pop();
     avv.classList.toggle('dir', Math.random() < .5);
     void avv.offsetWidth; avv.classList.add('on'); /* o reflow faz a entrada partir do lado sorteado */
     setTimeout(() => avv.classList.remove('on'), 5000);
