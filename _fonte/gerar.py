@@ -8,7 +8,7 @@ SITE = os.path.dirname(AQUI)
 APP = os.path.join(os.path.dirname(SITE), 'app')
 
 CHECKOUT = 'https://pay.cakto.com.br/j9i9xr6'  # checkout do front na Cakto
-PIXEL_ID = ''           # dataset do Meta (preencher quando existir)
+PIXEL_ID = '2136217067253895'  # dataset do Meta "Schiena Sciolta" na canarimtech
 PAINEL = '<script async src="https://painel.labofertas.com/api/lp/script?k=f6a8ffdd8d97b8f1b6e4028b63ac8c50"></script>'  # visitas do painel (instalacao.script do diagnostico-rastreio)
 
 ex = json.load(open(os.path.join(APP, '_fonte', 'conteudo', 'esercizi.json'), encoding='utf-8'))
