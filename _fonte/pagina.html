@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-180.png">
 <link rel="preload" as="image" href="img/app-esercizio.webp" fetchpriority="high">
+<script>document.documentElement.classList.add('js');try{if(/[?&]trava(&|=|$)/.test(location.search))localStorage.removeItem('ss_vsl_v2');else if(localStorage.getItem('ss_vsl_v2'))document.documentElement.classList.add('liberado')}catch(e){}</script>
 __PIXEL__
 <style>
 :root{--fundo:#f4eee6;--cartao:#fffdf9;--tinta:#1f312d;--suave:#5d6d68;--linha:#e4dacd;--verde:#2f6f62;--verde-2:#e2eee8;--areia:#efe5d8;--ambra:#b8692a;--ambra-2:#f6e6d4;--alerta:#a5402c;--alerta-2:#f7e1da}
@@ -124,8 +125,34 @@ details[open] summary::after{content:"−"}
 details p{margin-top:8px;color:var(--suave)}
 footer{padding:30px 0 50px;font-size:13.5px;color:var(--suave);text-align:center}
 footer a{margin:0 8px}
-@media (max-height:760px){.hero .sub2{order:1;font-size:15.5px;margin-top:14px;text-align:center}}
-@media (max-height:700px){.hero h1{font-size:25px}.hero .sub{font-size:15.5px;line-height:1.45}.chapeu{font-size:13px;padding:4px 10px;margin-bottom:10px}.marca{padding-top:10px}}
+/* VSL no topo: ocupa a largura toda do celular; o botão e o resto da página só aparecem quando o vídeo fala o preço */
+.hero h1{font-size:27px}
+.hero .sub{margin-top:8px;font-size:16px}
+.vsl{position:relative;margin:14px -20px 0;background:#111;aspect-ratio:1/1}
+.vsl.alta{aspect-ratio:auto;height:var(--vh)}
+.hero .dopo{min-height:72px}
+.hero .dopo .btn{margin-top:9px}
+.vsl video{display:block;width:100%;height:100%;object-fit:cover}
+.som{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;white-space:nowrap;border:0;border-radius:999px;padding:14px 20px;background:rgba(31,49,45,.88);color:#fff;font:700 16px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35);cursor:pointer;animation:pulsa 1.6s ease-in-out infinite}
+.som svg{width:26px;height:26px}
+.vsl.audio .som{display:none}
+@keyframes pulsa{50%{transform:translate(-50%,-50%) scale(1.05)}}
+.pausa{position:absolute;inset:0;display:none;background:rgba(0,0,0,.35) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/72px no-repeat}
+.vsl.fermo .pausa{display:block}
+.avanzo{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.25)}
+.avanzo i{display:block;height:100%;width:0;background:var(--verde)}
+.js:not(.liberado) .hero .dopo,.js:not(.liberado) main>section:not(.hero),.js:not(.liberado) footer{display:none}
+.liberado .hero .dopo{animation:entra .5s ease-out}
+/* botão que acompanha a tela: só depois de liberar, e só quando nenhum outro botão de compra está à vista */
+.fixo{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(244,238,230,.97);box-shadow:0 -8px 24px -12px rgba(31,49,45,.35);transform:translateY(120%);transition:transform .25s ease-out}
+.fixo .btn{margin:0;max-width:560px;margin-inline:auto;min-height:56px}
+.fixo.on{transform:none}
+.liberado body{padding-bottom:84px}
+@media (prefers-reduced-motion:reduce){.fixo{transition:none}}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}}
+@media (max-height:700px){.hero h1{font-size:23px}.hero .sub{font-size:15px}.marca{padding-top:10px}}
+@media (max-height:620px){.hero .sub{display:none}.hero h1{font-size:22px}}
+@media (min-width:760px){.vsl{margin:16px 0 0;border-radius:18px;overflow:hidden}}
 @media (min-width:760px){h1{font-size:38px}.c{max-width:620px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -136,13 +163,18 @@ footer a{margin:0 8px}
 
 <main>
 <section class="hero"><div class="c">
-  <span class="chapeu">Per chi ha già provato punture, fisioterapia ed esami</span>
-  <h1>Finite le punture, il mal di schiena torna come prima?</h1>
-  <p class="sub">Schiena Sciolta è un piano di 3 settimane da fare a casa, sul telefono, per tornare a muoverti senza la paura che la schiena si blocchi.</p>
-  <p class="sub2">10-12 minuti al giorno, esercizi semplici nell'ordine giusto, e vai avanti solo quando la schiena regge.</p>
-  <div class="recorte"><div class="fone"><img src="img/app-esercizio.webp" alt="L'app Schiena Sciolta aperta su un esercizio, con il timer" width="560" height="1078" fetchpriority="high"><svg class="figura" data-fig="gatto" aria-hidden="true"></svg></div></div>
-  <a class="btn compra" href="__CHECKOUT__">Voglio il piano di 3 settimane</a>
-  <p class="micro">14,90 € · Pagamento unico · Si apre dal telefono</p>
+  <h1>La schiena ti fa soffrire anche nelle cose più semplici?</h1>
+  <p class="sub">Alzarti dal letto, allacciarti le scarpe, portare la spesa… Guarda il video: in meno di 2 minuti ti spiego perché succede e cosa fare a casa.</p>
+  <div class="vsl">
+    <video data-lab-vsl="vsl-v2-curta" src="video/vsl-v2.mp4" poster="img/vsl-capa.jpg" width="720" height="720" muted autoplay playsinline preload="auto"></video>
+    <button class="som" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>Tocca per attivare l'audio</button>
+    <span class="pausa" aria-hidden="true"></span>
+    <div class="avanzo"><i></i></div>
+  </div>
+  <div class="dopo">
+    <a class="btn compra" href="__CHECKOUT__">Voglio il piano di 3 settimane</a>
+    <p class="micro">14,90 € · Pagamento unico · Si apre dal telefono</p>
+  </div>
 </div></section>
 
 <section><div class="c">
@@ -213,7 +245,7 @@ footer a{margin:0 8px}
     <li>perdi forza in una gamba o hai problemi a controllare la vescica;</li>
     <li>il formicolio aumenta invece di diminuire.</li></ul></div>
     <img src="img/app-fermarsi.webp" alt="La schermata Quando fermarsi nell'app" width="560" height="1078" loading="lazy"></div></div>
-  <p class="nota">Schiena Sciolta non è una cura e non sostituisce il medico o il fisioterapista. Il piano dura 3 settimane; ognuno ha i suoi tempi.</p>
+  <p class="nota">Non sostituisce la visita dal medico o dal fisioterapista. Il piano dura 3 settimane; ognuno ha i suoi tempi.</p>
 </div></section>
 
 <section style="padding-bottom:0"><div class="c">
@@ -263,8 +295,8 @@ footer a{margin:0 8px}
 
 </main>
 
+<aside class="fixo" aria-label="Acquista il piano" aria-hidden="true"><a class="btn compra" href="__CHECKOUT__" tabindex="-1">Voglio il piano di 3 settimane</a></aside>
 <footer><div class="c">
-  <p>Schiena Sciolta non è una cura e non sostituisce il medico o il fisioterapista.</p>
   <p><a href="termini/">Termini e condizioni</a><a href="privacy/">Informativa sulla privacy</a></p>
 </div></footer>
 
@@ -280,16 +312,34 @@ __FIGURA_JS__
     else if (!e.isIntersecting && vivas.has(s)) { vivas.get(s)(); vivas.delete(s); }
   }), { rootMargin: '80px' }) : null;
   document.querySelectorAll('svg[data-fig]').forEach(s => { Figura.montar(s, F[s.dataset.fig])(0); if (io) io.observe(s); });
-  /* o celular do topo se ajusta à altura que sobra na tela (no iPhone a barra do Safari come espaço):
-     mostra o app inteiro até o fim do exercício e deixa o botão na primeira tela */
-  const hero = document.querySelector('.hero'), rec = hero.querySelector('.recorte');
-  const ajustar = () => {
-    const topo = rec.getBoundingClientRect().top + scrollY;
-    const h = Math.max(190, Math.min(innerHeight - topo - 108, 330, innerWidth * .9));
-    hero.style.setProperty('--hr', Math.round(h) + 'px');
+  /* VSL: começa muda (a legenda está no vídeo); o toque liga o som e recomeça do início.
+     O botão e o resto da página aparecem quando o vídeo fala o preço, e ficam liberados nas próximas visitas.
+     Se o vídeo não carregar, libera tudo na hora: ninguém fica sem botão. */
+  const LIBERA = 90.3; /* "quattordici e novanta" na narração (VSL curta, 1min44) */
+  const raiz = document.documentElement, caixa = document.querySelector('.vsl'), v = caixa.querySelector('video'), barra = caixa.querySelector('.avanzo i');
+  const liberar = () => { if (raiz.classList.contains('liberado')) return; raiz.classList.add('liberado'); try { localStorage.setItem('ss_vsl_v2', '1'); } catch (e) {} /* a chave muda com a versão do vídeo */ };
+  v.addEventListener('timeupdate', () => {
+    if (v.duration) barra.style.width = (Math.pow(v.currentTime / v.duration, .7) * 100).toFixed(2) + '%';
+    if (v.currentTime >= LIBERA) liberar();
+  });
+  v.addEventListener('error', liberar);
+  v.addEventListener('ended', liberar);
+  caixa.querySelector('.som').addEventListener('click', e => { e.stopPropagation(); v.muted = false; v.currentTime = 0; v.play(); caixa.classList.add('audio'); caixa.classList.remove('fermo'); });
+  caixa.addEventListener('click', () => {
+    if (!caixa.classList.contains('audio')) { v.muted = false; v.currentTime = 0; v.play(); caixa.classList.add('audio'); return; }
+    if (v.paused) { v.play(); caixa.classList.remove('fermo'); } else { v.pause(); caixa.classList.add('fermo'); }
+  });
+  /* no celular o vídeo cresce até preencher a primeira tela (no máximo 4:5, cortando as laterais, que o vídeo deixa livres),
+     e embaixo fica só o espaço do botão: quando ele libera, aparece sem precisar rolar */
+  const altura = () => {
+    if (innerWidth >= 760) { caixa.classList.remove('alta'); return; }
+    const larg = caixa.getBoundingClientRect().width, topo = caixa.getBoundingClientRect().top + scrollY;
+    const h = Math.round(Math.max(larg, Math.min(larg * 1.25, innerHeight - topo - 90)));
+    caixa.style.setProperty('--vh', h + 'px'); caixa.classList.add('alta');
   };
-  /* só recalcula quando a largura muda (girar o celular): a barra do Safari some e volta na rolagem e faria o topo pular */
-  let larg = innerWidth; ajustar(); addEventListener('resize', () => { if (innerWidth !== larg) { larg = innerWidth; ajustar(); } });
+  let largura = innerWidth; altura(); addEventListener('resize', () => { if (innerWidth !== largura) { largura = innerWidth; altura(); } });
+  /* autoplay mudo bloqueado (modo economia de dados): mostra o play */
+  v.play && v.play().catch(() => caixa.classList.add('fermo'));
   /* esteira das telas do app: anda sempre, devagar, num laço sem emenda (os cards se repetem uma vez);
      para só enquanto a pessoa segura o dedo em cima; quem pediu menos movimento no celular arrasta à mão */
   const est = document.querySelector('.esteira'), tri = est.querySelector('.trilho');
@@ -304,8 +354,20 @@ __FIGURA_JS__
     const parar = () => est.classList.add('parado'), seguir = () => est.classList.remove('parado');
     est.addEventListener('pointerdown', parar); ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => est.addEventListener(ev, seguir));
   }
+  /* botão fixo: aparece quando a página está liberada e nenhum botão de compra da página está na tela */
+  const fixo = document.querySelector('.fixo'), fixoA = fixo.querySelector('a'), vistos = new Set();
+  const mostrar = () => {
+    const on = raiz.classList.contains('liberado') && vistos.size === 0 && scrollY > 80;
+    fixo.classList.toggle('on', on); fixo.setAttribute('aria-hidden', on ? 'false' : 'true'); fixoA.tabIndex = on ? 0 : -1;
+  };
+  if ('IntersectionObserver' in window) {
+    const ob = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? vistos.add(e.target) : vistos.delete(e.target)); mostrar(); });
+    document.querySelectorAll('a.compra').forEach(a => { if (a !== fixoA) ob.observe(a); });
+    addEventListener('scroll', mostrar, { passive: true });
+    new MutationObserver(mostrar).observe(raiz, { attributes: true, attributeFilter: ['class'] });
+  }
   /* repassa UTMs e fbclid da página para o checkout */
-  const q = location.search.slice(1);
+  const q = location.search.slice(1).split('&').filter(x => x && !/^trava(=|$)/.test(x)).join('&'); /* ?trava é só o atalho de teste */
   if (q) document.querySelectorAll('a.compra').forEach(a => { a.href += (a.href.includes('?') ? '&' : '?') + q; });
 })();
 </script>
